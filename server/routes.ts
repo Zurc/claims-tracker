@@ -30,33 +30,6 @@ export async function registerRoutes(app: Express) {
     res.status(201).json(claim);
   });
 
-  // Get claim documents
-  app.get("/api/claims/:id/documents", async (req, res) => {
-    const documents = await storage.getClaimDocuments(parseInt(req.params.id));
-    res.json(documents);
-  });
-
-  // Add document to claim
-  app.post("/api/claims/:id/documents", async (req, res) => {
-    const claimId = parseInt(req.params.id);
-    const claim = await storage.getClaim(claimId);
-
-    if (!claim) {
-      return res.status(404).json({ message: "Claim not found" });
-    }
-
-    // TODO: Implement actual file upload handling
-    // For now, we'll just save the document metadata
-    const document = await storage.addDocument({
-      claimId,
-      fileName: req.body.fileName,
-      fileType: req.body.fileType,
-      fileUrl: req.body.fileUrl
-    });
-
-    res.status(201).json(document);
-  });
-
   const httpServer = createServer(app);
   return httpServer;
 }
