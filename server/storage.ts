@@ -1,57 +1,48 @@
-import type { Claim, InsertClaim } from "@shared/schema";
+import type { Claim, InsertClaim, Document, InsertDocument } from "@shared/schema";
+import { claims, documents } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getAllClaims(): Promise<Claim[]>;
   getClaim(id: number): Promise<Claim | undefined>;
   createClaim(claim: InsertClaim): Promise<Claim>;
+  getClaimDocuments(claimId: number): Promise<Document[]>;
+  addDocument(document: InsertDocument): Promise<Document>;
 }
 
-export class MemStorage implements IStorage {
-  private claims: Map<number, Claim>;
-  private currentId: number;
-
-  constructor() {
-    this.claims = new Map();
-    this.currentId = 1;
-
-    // Add some sample claims
-    const sampleClaims: InsertClaim[] = [
-      {
-        claimType: "Broken Phone Screen",
-        dateOfIncident: new Date("2024-01-15"),
-        description: "Phone slipped from hand and screen cracked"
-      },
-      {
-        claimType: "Minor Car Dent",
-        dateOfIncident: new Date("2024-01-20"),
-        description: "Small dent on passenger door from shopping cart"
-      }
-    ];
-
-    sampleClaims.forEach(claim => {
-      this.createClaim(claim);
-    });
-  }
-
+export class DatabaseStorage implements IStorage {
   async getAllClaims(): Promise<Claim[]> {
-    return Array.from(this.claims.values());
+    return await db.select().from(claims);
   }
 
   async getClaim(id: number): Promise<Claim | undefined> {
-    return this.claims.get(id);
+    const [claim] = await db.select().from(claims).where(eq(claims.id, id));
+    return claim;
   }
 
   async createClaim(insertClaim: InsertClaim): Promise<Claim> {
-    const id = this.currentId++;
-    const claim: Claim = {
-      ...insertClaim,
-      id,
-      status: "Submitted",
-      dateSubmitted: new Date()
-    };
-    this.claims.set(id, claim);
+    const [claim] = await db
+      .insert(claims)
+      .values(insertClaim)
+      .returning();
     return claim;
+  }
+
+  async getClaimDocuments(claimId: number): Promise<Document[]> {
+    return await db
+      .select()
+      .from(documents)
+      .where(eq(documents.claimId, claimId));
+  }
+
+  async addDocument(document: InsertDocument): Promise<Document> {
+    const [newDocument] = await db
+      .insert(documents)
+      .values(document)
+      .returning();
+    return newDocument;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
