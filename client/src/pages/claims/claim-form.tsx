@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertClaimSchema } from "@shared/schema";
+import { insertClaimSchema, claimTypes } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
@@ -24,21 +24,15 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const claimTypes = [
-  "Broken Phone Screen",
-  "Minor Car Dent",
-  "Water Damage"
-];
-
 export default function ClaimForm() {
   const { toast } = useToast();
   const [, navigate] = useLocation();
-  
+
   const form = useForm({
     resolver: zodResolver(insertClaimSchema),
     defaultValues: {
       claimType: "",
-      dateOfIncident: "",
+      dateOfIncident: new Date().toISOString().split('T')[0],
       description: ""
     }
   });
@@ -104,7 +98,11 @@ export default function ClaimForm() {
                   <FormItem>
                     <FormLabel>Date of Incident</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} />
+                      <Input 
+                        type="date" 
+                        {...field}
+                        max={new Date().toISOString().split('T')[0]}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,7 +118,7 @@ export default function ClaimForm() {
                     <FormControl>
                       <Textarea 
                         {...field} 
-                        placeholder="Please describe what happened..."
+                        placeholder="Please provide details about the incident..."
                         rows={4}
                       />
                     </FormControl>

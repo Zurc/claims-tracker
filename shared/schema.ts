@@ -4,14 +4,29 @@ import { z } from "zod";
 
 export const claims = pgTable("claims", {
   id: serial("id").primaryKey(),
-  claimType: varchar("claim_type", { length: 50 }).notNull(),
+  claimType: varchar("claim_type", { length: 100 }).notNull(),
   dateOfIncident: timestamp("date_of_incident").notNull(),
   description: text("description").notNull(),
   status: varchar("status", { length: 20 }).notNull().default("Submitted"),
   dateSubmitted: timestamp("date_submitted").notNull().default(new Date()),
 });
 
-export const insertClaimSchema = createInsertSchema(claims).omit({ 
+export const claimTypes = [
+  "Auto Collision",
+  "Auto Theft",
+  "Water Damage - Home",
+  "Fire Damage - Home",
+  "Roof Damage",
+  "Personal Property Theft",
+  "Medical Expense",
+  "Personal Injury",
+  "Mobile Device Damage",
+  "Natural Disaster"
+] as const;
+
+export const insertClaimSchema = createInsertSchema(claims, {
+  dateOfIncident: z.string().transform((str) => new Date(str))
+}).omit({ 
   id: true,
   dateSubmitted: true,
   status: true
