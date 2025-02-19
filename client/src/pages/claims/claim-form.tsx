@@ -4,6 +4,7 @@ import { insertClaimSchema, claimTypes } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
+import { queryClient } from "@/lib/queryClient"; // Added import
 import {
   Form,
   FormControl,
@@ -40,6 +41,8 @@ export default function ClaimForm() {
   async function onSubmit(data: any) {
     try {
       await apiRequest("POST", "/api/claims", data);
+      // Invalidate claims query to trigger a refetch
+      await queryClient.invalidateQueries({ queryKey: ["/api/claims"] });
       toast({
         title: "Claim Submitted",
         description: "Your claim has been successfully submitted"
