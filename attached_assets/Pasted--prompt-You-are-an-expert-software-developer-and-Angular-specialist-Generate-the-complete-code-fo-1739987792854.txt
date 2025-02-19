@@ -1,0 +1,43 @@
+```prompt
+You are an expert software developer and Angular specialist. Generate the complete code for a functional Angular application named "Simple Claims Tracker" for an insurance company. The application should use Angular version 16 or later, and leverage Angular Material for styling.
+
+**Application Requirements:**
+
+1.  **Claim Submission:**
+    * Create a component with a reactive form to submit new claims.
+    * Fields: Claim Type (dropdown: "Broken Phone Screen", "Minor Car Dent", "Water Damage"), Date of Incident (date picker), Description (textarea), and a placeholder for photo uploads.
+    * Implement form validation (required fields).
+    * Upon submission, simulate saving the claim data to a fake backend.
+2.  **Claim Tracking:**
+    * Create a component to display a list of claims for the current user.
+    * Display: Claim ID, Claim Type, Date Submitted, and Current Status.
+    * Fetch claim data from a fake backend (JSON file).
+    * Create a detail view that displays all claim data when a user clicks on a claim in the list.
+3.  **Status Updates:**
+    * Simulate claim status updates using a pre-defined list of statuses: "Submitted," "Under Review," "Approved," "Denied."
+    * Display the current status of the claim.
+4.  **Data:**
+    * Create `claims.json` and `statuses.json` files within the `assets` folder to store fake data.
+    * `claims.json` should contain at least 5 example claims.
+    * `statuses.json` should contain the 4 status values above.
+5.  **Routing:**
+    * Set up routing to navigate between the claim submission and claim tracking components.
+6.  **Angular Material:**
+    * Use Angular Material components for forms, tables, and buttons.
+    * Ensure the application has a clean and professional appearance.
+7.  **Services:**
+    * Create a service that will handle http requests, that will return the fake json data.
+8.  **Project Structure:**
+    * Organize the project into logical components and services.
+    * Ensure the project is correctly configured to use angular material.
+
+**Deliverables:**
+
+* Provide the complete Angular project code, including all components, services, routing configurations, and JSON data files.
+* Provide clear instructions on how to run the application using `ng serve`.
+
+**Constraints:**
+
+* Do not use a real backend.
+* Focus on functionality and clean code, not complex styling.
+* Use typescript.
