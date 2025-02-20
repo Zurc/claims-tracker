@@ -22,7 +22,7 @@ router.get("/claims", async (_req, res) => {
 });
 
 // Get single claim
-router.get("/api/claims/:id", async (req, res) => {
+router.get("/claims/:id", async (req, res) => {
   const claim = await storage.getClaim(parseInt(req.params.id));
   if (!claim) {
     return res.status(404).json({ message: "Claim not found" });
@@ -31,14 +31,19 @@ router.get("/api/claims/:id", async (req, res) => {
 });
 
 // Create new claim
-router.post("/api/claims", async (req, res) => {
-  const parseResult = insertClaimSchema.safeParse(req.body);
-  if (!parseResult.success) {
-    return res.status(400).json({ message: "Invalid claim data" });
-  }
+router.post("/claims", async (req, res) => {
+  try {
+    const parseResult = insertClaimSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({ message: "Invalid claim data" });
+    }
 
-  const claim = await storage.createClaim(parseResult.data);
-  res.status(201).json(claim);
+    const claim = await storage.createClaim(parseResult.data);
+    res.status(201).json(claim);
+  } catch (error) {
+    console.error("Error creating claim:", error);
+    res.status(500).json({ message: "Failed to create claim" });
+  }
 });
 
 api.use("/api/", router);
