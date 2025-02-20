@@ -33,13 +33,16 @@ router.get("/claims/:id", async (req, res) => {
 // Create new claim
 router.post("/claims", async (req, res) => {
   try {
-    const parseResult = insertClaimSchema.safeParse(req.body);
-    console.log("parseResult", parseResult);
-    if (!parseResult.success) {
+    // const parseResult = insertClaimSchema.safeParse(req.body);
+    const parseResult = req.body;
+    // console.log("parseResult", parseResult);
+    // if (!parseResult.success) {
+    if (!parseResult) {
       return res.status(400).json({ message: "Invalid claim data" });
     }
 
-    const claim = await storage.createClaim(parseResult.data);
+    // const claim = await storage.createClaim(parseResult.data);
+    const claim = await storage.createClaim(parseResult);
     res.status(201).json(claim);
   } catch (error) {
     console.error("Error creating claim:", error);
