@@ -34,7 +34,7 @@ router.get("/claims/:id", async (req, res) => {
 router.post("/claims", async (req, res) => {
   try {
     // const parseResult = insertClaimSchema.safeParse(req.body);
-    const parseResult = req.body;
+    const parseResult = insertClaimSchema.parse(req.body);
     console.log("parseResult", parseResult);
     // if (!parseResult.success) {
     if (!parseResult) {
