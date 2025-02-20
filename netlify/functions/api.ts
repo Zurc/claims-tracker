@@ -35,15 +35,12 @@ router.get("/claims/:id", async (req, res) => {
 router.post("/claims", async (req, res) => {
   try {
     const parseResult = insertClaimSchema.safeParse(req.body);
-    // const parseResult = insertClaimSchema.parse(req.body);
-    // console.log("parseResult", parseResult);
     if (!parseResult.success) {
-      // if (!parseResult) {
       return res.status(400).json({ message: "Invalid claim data" });
     }
 
-    // const claim = await storage.createClaim(parseResult.data);
-    const claim = await storage.createClaim(parseResult);
+    const claim = await storage.createClaim(parseResult.data);
+    // const claim = await storage.createClaim(parseResult);
     res.status(201).json(claim);
   } catch (error) {
     console.error("Error creating claim:", error);
