@@ -35,7 +35,7 @@ router.post("/claims", async (req, res) => {
   try {
     // const parseResult = insertClaimSchema.safeParse(req.body);
     const parseResult = req.body;
-    // console.log("parseResult", parseResult);
+    console.log("parseResult", parseResult);
     // if (!parseResult.success) {
     if (!parseResult) {
       return res.status(400).json({ message: "Invalid claim data" });
