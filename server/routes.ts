@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer } from "http";
-import { storage } from "./storage";
+import { storage } from "../netlify/functions/storage";
 import { insertClaimSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express) {
