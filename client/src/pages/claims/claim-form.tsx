@@ -106,7 +106,11 @@ export default function ClaimForm() {
                         type="date"
                         {...field}
                         max={new Date().toISOString().split("T")[0]}
-                        value={field.value.toISOString().split("T")[0]}
+                        value={
+                          field.value instanceof Date
+                            ? field.value.toISOString().split("T")[0]
+                            : field.value
+                        }
                       />
                     </FormControl>
                     <FormMessage />
