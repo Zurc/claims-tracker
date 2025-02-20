@@ -3,7 +3,7 @@
 import express, { Router } from "express";
 import serverless from "serverless-http";
 import { storage } from "./storage";
-import { insertClaimSchema } from "../../shared/schema";
+import { insertClaimSchema } from "./schema";
 
 const api = express();
 

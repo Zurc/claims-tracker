@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Claim } from "@shared/schema";
+import type { Claim } from "netlify/functions/schema";
 import { Link } from "wouter";
 import {
   Table,

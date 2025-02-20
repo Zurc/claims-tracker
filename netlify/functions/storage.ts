@@ -1,4 +1,4 @@
-import type { Claim, InsertClaim } from "@shared/schema";
+import type { Claim, InsertClaim } from "netlify/functions/schema";
 
 export interface IStorage {
   getAllClaims(): Promise<Claim[]>;
@@ -15,7 +15,7 @@ export class MemoryStorage implements IStorage {
   }
 
   async getClaim(id: number): Promise<Claim | undefined> {
-    return this.claims.find(claim => claim.id === id);
+    return this.claims.find((claim) => claim.id === id);
   }
 
   async createClaim(insertClaim: InsertClaim): Promise<Claim> {

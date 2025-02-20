@@ -3,7 +3,8 @@
     "client/src/**/*",
     "shared/**/*",
     "server/**/*",
-    "netlify/functions/storage.ts"
+    "netlify/functions/storage.ts",
+    "netlify/functions/schema.ts"
   ],
   "exclude": ["node_modules", "dist", "dist", "**/*.test.ts"],
   "compilerOptions": {

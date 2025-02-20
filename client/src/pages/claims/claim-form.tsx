@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertClaimSchema, claimTypes } from "@shared/schema";
+import { insertClaimSchema, claimTypes } from "netlify/functions/schema";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
@@ -16,12 +16,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue 
+  SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -33,9 +33,9 @@ export default function ClaimForm() {
     resolver: zodResolver(insertClaimSchema),
     defaultValues: {
       claimType: "",
-      dateOfIncident: new Date().toISOString().split('T')[0],
-      description: ""
-    }
+      dateOfIncident: new Date().toISOString().split("T")[0],
+      description: "",
+    },
   });
 
   async function onSubmit(data: any) {
@@ -45,14 +45,14 @@ export default function ClaimForm() {
       await queryClient.invalidateQueries({ queryKey: ["/api/claims"] });
       toast({
         title: "Claim Submitted",
-        description: "Your claim has been successfully submitted"
+        description: "Your claim has been successfully submitted",
       });
       navigate("/claims");
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to submit claim. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   }
@@ -72,7 +72,7 @@ export default function ClaimForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Claim Type</FormLabel>
-                    <Select 
+                    <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
@@ -82,7 +82,7 @@ export default function ClaimForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {claimTypes.map(type => (
+                        {claimTypes.map((type) => (
                           <SelectItem key={type} value={type}>
                             {type}
                           </SelectItem>
@@ -101,10 +101,10 @@ export default function ClaimForm() {
                   <FormItem>
                     <FormLabel>Date of Incident</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="date" 
+                      <Input
+                        type="date"
                         {...field}
-                        max={new Date().toISOString().split('T')[0]}
+                        max={new Date().toISOString().split("T")[0]}
                       />
                     </FormControl>
                     <FormMessage />
@@ -119,8 +119,8 @@ export default function ClaimForm() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        {...field} 
+                      <Textarea
+                        {...field}
                         placeholder="Please provide details about the incident..."
                         rows={4}
                       />
