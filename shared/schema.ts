@@ -10,7 +10,7 @@ export const claimTypes = [
   "Medical Expense",
   "Personal Injury",
   "Mobile Device Damage",
-  "Natural Disaster"
+  "Natural Disaster",
 ] as const;
 
 export interface Claim {
@@ -24,15 +24,16 @@ export interface Claim {
 
 export const insertClaimSchema = z.object({
   claimType: z.string(),
-  dateOfIncident: z.string().transform((str) => new Date(str)),
+  // dateOfIncident: z.string().transform((str) => new Date(str)),
+  dateOfIncident: z.coerce.date(),
   description: z.string().min(1, "Description is required"),
 });
 
 export const claimStatusSchema = z.enum([
   "Submitted",
   "Under Review",
-  "Approved", 
-  "Denied"
+  "Approved",
+  "Denied",
 ]);
 
 export type ClaimStatus = z.infer<typeof claimStatusSchema>;
