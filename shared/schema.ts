@@ -16,7 +16,7 @@ export const claimTypes = [
 export interface Claim {
   id: number;
   claimType: string;
-  dateOfIncident: string;
+  dateOfIncident: Date;
   description: string;
   status: ClaimStatus;
   dateSubmitted: Date;
@@ -24,10 +24,10 @@ export interface Claim {
 
 export const insertClaimSchema = z.object({
   claimType: z.string(),
-  // dateOfIncident: z.string().transform((str) => new Date(str)),
-  dateOfIncident: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD"),
+  dateOfIncident: z.string().transform((str) => new Date(str)),
+  // dateOfIncident: z
+  //   .string()
+  //   .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD"),
   // .transform((str) => new Date(str)),
   description: z.string().min(1, "Description is required"),
 });
