@@ -24,7 +24,7 @@ export interface Claim {
 
 export const insertClaimSchema = z.object({
   claimType: z.string(),
-  dateOfIncident: z.coerce.date(),
+  dateOfIncident: z.string().transform((str) => new Date(str)),
   description: z.string().min(1, "Description is required"),
 });
 // dateOfIncident: z.string().transform((str) => new Date(str)),
