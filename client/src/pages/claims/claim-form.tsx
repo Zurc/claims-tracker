@@ -33,7 +33,8 @@ export default function ClaimForm() {
     resolver: zodResolver(insertClaimSchema),
     defaultValues: {
       claimType: "",
-      dateOfIncident: new Date().toISOString().split("T")[0],
+      // dateOfIncident: new Date().toISOString().split("T")[0],
+      dateOfIncident: new Date(),
       description: "",
     },
   });
@@ -105,6 +106,7 @@ export default function ClaimForm() {
                         type="date"
                         {...field}
                         max={new Date().toISOString().split("T")[0]}
+                        value={field.value.toISOString().split("T")[0]}
                       />
                     </FormControl>
                     <FormMessage />
