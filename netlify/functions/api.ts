@@ -3,7 +3,7 @@
 import express, { Router } from "express";
 import serverless from "serverless-http";
 import { storage } from "./storage";
-import { insertClaimSchema } from "./schema";
+import { insertClaimSchema } from "../../shared/schema";
 
 const api = express();
 
@@ -34,6 +34,7 @@ router.get("/claims/:id", async (req, res) => {
 router.post("/claims", async (req, res) => {
   try {
     const parseResult = insertClaimSchema.safeParse(req.body);
+    console.log("parseResult", parseResult);
     if (!parseResult.success) {
       return res.status(400).json({ message: "Invalid claim data" });
     }

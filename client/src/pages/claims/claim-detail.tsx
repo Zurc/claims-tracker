@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Claim } from "netlify/functions/schema";
+import type { Claim } from "@shared/schema";
 import { useParams } from "wouter";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

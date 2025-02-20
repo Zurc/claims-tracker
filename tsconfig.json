@@ -4,7 +4,7 @@
     "shared/**/*",
     "server/**/*",
     "netlify/functions/storage.ts",
-    "netlify/functions/schema.ts"
+    "shared/schema.ts"
   ],
   "exclude": ["node_modules", "dist", "dist", "**/*.test.ts"],
   "compilerOptions": {

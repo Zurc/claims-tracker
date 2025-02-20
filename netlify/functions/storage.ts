@@ -1,4 +1,4 @@
-import type { Claim, InsertClaim } from "netlify/functions/schema";
+import type { Claim, InsertClaim } from "@shared/schema";
 
 export interface IStorage {
   getAllClaims(): Promise<Claim[]>;
