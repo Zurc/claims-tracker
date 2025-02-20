@@ -101,10 +101,19 @@ export default function ClaimForm() {
                   <FormItem>
                     <FormLabel>Date of Incident</FormLabel>
                     <FormControl>
-                      <Input
+                      {/* <Input
                         type="date"
                         {...field}
                         max={new Date().toISOString().split("T")[0]}
+                        value={
+                          field.value instanceof Date
+                            ? field.value.toISOString().split("T")[0]
+                            : field.value
+                        }
+                      /> */}
+                      <Input
+                        type="date"
+                        {...field}
                         value={
                           field.value instanceof Date
                             ? field.value.toISOString().split("T")[0]
