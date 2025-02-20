@@ -103,7 +103,7 @@ export default function ClaimForm() {
                     <FormLabel>Date of Incident</FormLabel>
                     <FormControl>
                       <Input
-                        type="date"
+                        type="string"
                         {...field}
                         max={new Date().toISOString().split("T")[0]}
                         value={
