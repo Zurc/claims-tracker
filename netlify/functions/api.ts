@@ -8,6 +8,7 @@ import { insertClaimSchema } from "../../shared/schema";
 const api = express();
 
 const router = Router();
+router.use(express.json());
 
 router.get("/hello", (req, res) => res.send("Hello World!"));
 
