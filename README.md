@@ -7,6 +7,7 @@ An insurance claims management portal built with React and Express. Submit, trac
 - **Submit Claims** - Create new insurance claims with type, incident date, and description
 - **Track Status** - Monitor claim progress (Submitted, Under Review, Approved, Denied)
 - **View Details** - Access detailed information for each claim
+- **Delete Claims** - Remove claims with confirmation dialog
 - **Responsive Design** - Mobile-first UI with dark mode support
 - **10 Claim Types** - Auto collision, water damage, fire damage, medical expenses, and more
 
@@ -120,6 +121,7 @@ npm start
 | GET | `/api/claims` | Get all claims |
 | GET | `/api/claims/:id` | Get claim by ID |
 | POST | `/api/claims` | Create new claim |
+| DELETE | `/api/claims/:id` | Delete claim by ID |
 
 ### Create Claim Request Body
 
