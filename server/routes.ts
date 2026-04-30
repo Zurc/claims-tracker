@@ -30,6 +30,15 @@ export async function registerRoutes(app: Express) {
     res.status(201).json(claim);
   });
 
+  // Delete claim
+  app.delete("/api/claims/:id", async (req, res) => {
+    const deleted = await storage.deleteClaim(parseInt(req.params.id));
+    if (!deleted) {
+      return res.status(404).json({ message: "Claim not found" });
+    }
+    res.status(204).send();
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

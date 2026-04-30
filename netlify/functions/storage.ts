@@ -4,6 +4,7 @@ export interface IStorage {
   getAllClaims(): Promise<Claim[]>;
   getClaim(id: number): Promise<Claim | undefined>;
   createClaim(claim: InsertClaim): Promise<Claim>;
+  deleteClaim(id: number): Promise<boolean>;
 }
 
 export class MemoryStorage implements IStorage {
@@ -27,6 +28,15 @@ export class MemoryStorage implements IStorage {
     };
     this.claims.push(claim);
     return claim;
+  }
+
+  async deleteClaim(id: number): Promise<boolean> {
+    const index = this.claims.findIndex((claim) => claim.id === id);
+    if (index === -1) {
+      return false;
+    }
+    this.claims.splice(index, 1);
+    return true;
   }
 }
 
