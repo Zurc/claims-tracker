@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/toast"
 import { useToast } from "@/hooks/use-toast"
 
-export interface ToasterToast extends ToastProps {
+export interface ToasterToast extends Omit<ToastProps, "title"> {
   id: string
   title?: React.ReactNode
   description?: React.ReactNode

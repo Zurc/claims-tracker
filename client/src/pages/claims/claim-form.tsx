@@ -33,7 +33,7 @@ export default function ClaimForm() {
     resolver: zodResolver(insertClaimSchema),
     defaultValues: {
       claimType: "",
-      dateOfIncident: new Date(),
+      dateOfIncident: new Date().toISOString().split("T")[0],
       description: "",
     },
   });
@@ -101,25 +101,7 @@ export default function ClaimForm() {
                   <FormItem>
                     <FormLabel>Date of Incident</FormLabel>
                     <FormControl>
-                      {/* <Input
-                        type="date"
-                        {...field}
-                        max={new Date().toISOString().split("T")[0]}
-                        value={
-                          field.value instanceof Date
-                            ? field.value.toISOString().split("T")[0]
-                            : field.value
-                        }
-                      /> */}
-                      <Input
-                        type="date"
-                        {...field}
-                        value={
-                          field.value instanceof Date
-                            ? field.value.toISOString().split("T")[0]
-                            : field.value
-                        }
-                      />
+                      <Input type="date" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

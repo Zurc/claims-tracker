@@ -3,11 +3,11 @@
     "client/src/**/*",
     "shared/**/*",
     "server/**/*",
-    "netlify/functions/storage.ts",
-    "shared/schema.ts"
+    "netlify/functions/storage.ts"
   ],
-  "exclude": ["node_modules", "dist", "dist", "**/*.test.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"],
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": true,
